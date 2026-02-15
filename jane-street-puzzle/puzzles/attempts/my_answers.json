@@ -1,0 +1,14 @@
+[
+  {"puzzle": "2015/02_oh_chute", "my_answer": "Kc8", "confidence": "high", "reasoning": "Chess on Chutes & Ladders board. After Kh1, Ra1+ check. King escapes via ladder to c8."},
+  {"puzzle": "2015/03_ticker_treat", "my_answer": "S", "confidence": "high", "reasoning": "Stock tickers: ACE, P, T, F, SWI spell SWIFT PACE = Sprint = S."},
+  {"puzzle": "2015/04_hall_of_mirrors", "my_answer": "77", "confidence": "medium", "reasoning": "Laser/mirror optimization on 14x14 grid. +5 per success, -(N+2) per mirror."},
+  {"puzzle": "2015/05_tic_tac_oh", "my_answer": "191/192", "confidence": "high", "reasoning": "Corner start vs random. P(loss)=(1/8)(1/6)(1/4)=1/192."},
+  {"puzzle": "2015/06_polymath", "my_answer": "20160", "confidence": "high", "reasoning": "7-ominoes covering 1-7, each scores 5040. 4 copies = 20160."},
+  {"puzzle": "2015/07_good_chemistry", "my_answer": "4092", "confidence": "high", "reasoning": "f=V*E*F via Euler. ATP: 31*33*4=4092."},
+  {"puzzle": "2015/08_number_cross_2", "my_answer": "276", "confidence": "medium", "reasoning": "Crossword with sum/product clues. Sum of all digits."},
+  {"puzzle": "2015/09_think_of_the_children", "my_answer": "288", "confidence": "high", "reasoning": "Next N>72: (12,12,2) and (18,4,4) both sum to 26."},
+  {"puzzle": "2015/10_hex_agony", "my_answer": "256391", "confidence": "medium", "reasoning": "Hexagonal grid with color rules. Middle column sum."},
+  {"puzzle": "2015/11_pair_dance", "my_answer": "240", "confidence": "high", "reasoning": "15 dancers in triangle, 7 pairs. Near-perfect matchings count."},
+  {"puzzle": "2015/12_professor_rando", "my_answer": "Daphne=1/5, Max=6/25, Mindy=6/25, Sam=8/25", "confidence": "high", "reasoning": "Probability tree for 4 students with diff/max/min/sum."},
+  {"puzzle": "2026/01_timely_journey", "my_answer": "74", "confidence": "medium", "reasoning": "Sum of all RED-highlighted numbers in both grids. Left grid red: [0,7,5,2,4,6,6,2,0,8,3,0,1,6], Right grid red: [9,9,6]. Sum=74. Fits 'Timely Journey' theme as 74 could represent hours in a multi-day journey. NOTE: Crossword colored cells may contribute additional meaning not yet decoded."}
+]
