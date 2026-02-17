@@ -5,7 +5,7 @@
 - All 37 labeled cell expressions must evaluate to positive integers
 
 ## Grid Filling Constraints
-- Grid is 13×11 (143 cells total)
+- Grid is 13×13 (169 cells total)
 - Place values 1 through N in the grid for some N
 - Exactly K cells contain value K, for each K = 1, 2, ..., N
 - Total filled cells = N(N+1)/2 ≤ 143, so N ≤ 16
