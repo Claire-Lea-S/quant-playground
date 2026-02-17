@@ -1,7 +1,7 @@
 {
   "grid_size": {
     "rows": 13,
-    "cols": 11
+    "cols": 13
   },
   "variables": ["a", "b", "c"],
   "labeled_cells": {
