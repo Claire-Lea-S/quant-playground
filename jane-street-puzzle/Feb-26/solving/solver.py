@@ -18,11 +18,11 @@ from copy import deepcopy
 # GRID CONFIGURATION
 # ============================================================
 ROWS = 13
-COLS = 11
-TOTAL_CELLS = ROWS * COLS  # 143
+COLS = 13
+TOTAL_CELLS = ROWS * COLS  # 169
 
-# Max possible N: N(N+1)/2 <= 143 => N <= 16
-MAX_N = 16
+# Max possible N: N(N+1)/2 <= 169 => N <= 17
+MAX_N = 17
 
 
 # ============================================================
