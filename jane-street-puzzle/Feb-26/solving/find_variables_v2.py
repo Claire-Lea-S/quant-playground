@@ -184,6 +184,7 @@ def gen_variants():
 
     # ---- (2,7): sqrt(30+a)/c ----
     # From image: could be sqrt(3c+a)/c, sqrt(30+a)/c, etc.
+    # For a=3,b=2,c=2: most sqrt variants give 1. Need non-1 alternatives.
     V[(2,7)] = [
         ("sqrt(30+a)/c",         lambda a,b,c: ssqrt(30+a)/c if c else None),
         ("sqrt(3c+a)/c",         lambda a,b,c: ssqrt(3*c+a)/c if c else None),
@@ -202,9 +203,50 @@ def gen_variants():
         ("sqrt(3c-a)/c",         lambda a,b,c: ssqrt(3*c-a)/c if 3*c>a and c else None),
         ("sqrt(30+b)/c",         lambda a,b,c: ssqrt(30+b)/c if c else None),
         ("sqrt(3c+a)/b",         lambda a,b,c: ssqrt(3*c+a)/b if b else None),
+        # NO-sqrt versions (maybe image doesn't have sqrt)
         ("(30+a)/c",             lambda a,b,c: (30+a)/c if c else None),
         ("(3c+a)/c",             lambda a,b,c: (3*c+a)/c if c else None),
         ("(3a+c)/c",             lambda a,b,c: (3*a+c)/c if c else None),
+        ("(30+a)/a",             lambda a,b,c: (30+a)/a if a else None),
+        # For (3,2,2): (30+3)/3 = 11. YES!
+        ("(30+c)/c",             lambda a,b,c: (30+c)/c if c else None),
+        # For (3,2,2): (30+2)/2 = 16. YES!
+        ("(30+c)/a",             lambda a,b,c: (30+c)/a if a else None),
+        # For (3,2,2): 32/3. No.
+        ("(30+a)/(a+c)",         lambda a,b,c: (30+a)/(a+c) if a+c else None),
+        # For (3,2,2): 33/5. No.
+        ("(3c+a)/a",             lambda a,b,c: (3*c+a)/a if a else None),
+        # For (3,2,2): 9/3 = 3. YES!
+        ("(3a+c)/a",             lambda a,b,c: (3*a+c)/a if a else None),
+        # For (3,2,2): 11/3. No.
+        ("(3c+a)/b",             lambda a,b,c: (3*c+a)/b if b else None),
+        # For (3,2,2): 9/2. No.
+        ("(3a+b)/c",             lambda a,b,c: (3*a+b)/c if c else None),
+        # For (3,2,2): 11/2. No.
+        ("(3c+b)/c",             lambda a,b,c: (3*c+b)/c if c else None),
+        # For (3,2,2): 8/2 = 4. YES!
+        ("(3c+b)/a",             lambda a,b,c: (3*c+b)/a if a else None),
+        # For (3,2,2): 8/3. No.
+        ("(3b+a)/c",             lambda a,b,c: (3*b+a)/c if c else None),
+        # For (3,2,2): 9/2. No.
+        ("(3b+c)/c",             lambda a,b,c: (3*b+c)/c if c else None),
+        # For (3,2,2): 8/2 = 4. Dup of (3c+b)/c.
+        ("(3b+a)/a",             lambda a,b,c: (3*b+a)/a if a else None),
+        # For (3,2,2): 9/3 = 3. YES!
+        ("(3a+b)/a",             lambda a,b,c: (3*a+b)/a if a else None),
+        # For (3,2,2): 11/3. No.
+        ("(30+b)/a",             lambda a,b,c: (30+b)/a if a else None),
+        # For (3,2,2): 32/3. No.
+        ("(30+a*c)/c",           lambda a,b,c: (30+a*c)/c if c else None),
+        # For (3,2,2): 36/2 = 18. > 17.
+        ("(30-a)/c",             lambda a,b,c: (30-a)/c if c else None),
+        # For (3,2,2): 27/2. No.
+        ("(30-c)/a",             lambda a,b,c: (30-c)/a if a else None),
+        # For (3,2,2): 28/3. No.
+        ("(30-a)/a",             lambda a,b,c: (30-a)/a if a else None),
+        # For (3,2,2): 27/3 = 9. YES!
+        ("(30-c)/c",             lambda a,b,c: (30-c)/c if c else None),
+        # For (3,2,2): 28/2 = 14. YES!
     ]
 
     # ---- (2,9): (a+b)/(c-3a) ----
