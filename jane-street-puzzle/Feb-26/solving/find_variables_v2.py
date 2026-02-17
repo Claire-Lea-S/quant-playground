@@ -851,6 +851,7 @@ def main():
     c_candidates = [2, 3, 4, 5, 6, 7, 8]
 
     all_solutions = []
+    partial_results = []
 
     for b_val in b_candidates:
         for a_val in a_candidates:
@@ -862,22 +863,32 @@ def main():
                 pos_options = find_valid_values(variants_dict, a_val, b_val, c_val)
 
                 if pos_options is None:
-                    continue  # Some expression has no valid variant
+                    # Count how many can be satisfied
+                    count = 0
+                    missing = []
+                    for pos, variants in sorted(variants_dict.items()):
+                        found = False
+                        for vname, vfunc in variants:
+                            val = safe_eval(vfunc, a_val, b_val, c_val)
+                            if get_int(val) is not None:
+                                found = True
+                                count += 1
+                                break
+                        if not found:
+                            missing.append(pos)
+                    partial_results.append((count, a_val, b_val, c_val, missing))
+                    continue
 
                 # Count how many positions and how many options each has
                 positions = sorted(pos_options.keys())
+                num_positions = len(positions)
                 total_combos = 1
                 for pos in positions:
                     total_combos *= len(pos_options[pos])
 
-                # Quick feasibility check: for the set of all possible values,
-                # is there enough "capacity"?
-                # For each value k that appears, total appearances across all
-                # positions must allow count <= k
-
                 print(f"\n{'─'*70}")
                 print(f"  Testing a={a_val}, b={b_val}, c={c_val}")
-                print(f"  All {len(positions)} positions have at least one valid variant")
+                print(f"  All {num_positions}/37 positions have at least one valid variant")
                 print(f"  Total search space: {total_combos:,}")
 
                 # Show per-position options
@@ -885,10 +896,6 @@ def main():
                     opts = pos_options[pos]
                     vals = [v for _, v in opts]
                     print(f"    {str(pos):10s}: {len(opts)} option(s) -> values {vals}")
-
-                # Search for valid assignment
-                if total_combos > 1e12:
-                    print("  Search space too large, trying greedy + backtracking...")
 
                 # Order positions by number of options (most constrained first)
                 positions_ordered = sorted(positions, key=lambda p: len(pos_options[p]))
@@ -926,7 +933,23 @@ def main():
                         else:
                             print(f"\n    Count constraint VIOLATED")
                 else:
-                    print(f"  No valid assignment found.")
+                    # Debug: show what went wrong - which values are over-subscribed?
+                    print(f"  No valid assignment found (count constraint too tight)")
+                    # Show value demand
+                    val_demand = Counter()
+                    for pos in positions:
+                        for _, v in pos_options[pos]:
+                            pass  # just counting unique values
+                    # Show min-value assignment (ignoring count constraint)
+                    min_assign = {}
+                    for pos in positions:
+                        min_assign[pos] = pos_options[pos][0][1]  # smallest value
+                    min_counts = Counter(min_assign.values())
+                    print(f"    If we pick smallest value for each:")
+                    for k in sorted(min_counts.keys()):
+                        cnt = min_counts[k]
+                        status = "OK" if cnt <= k else f"OVER by {cnt-k}"
+                        print(f"      value {k:2d}: {cnt}x (limit {k}) {status}")
 
     # ============================================================
     # SUMMARY
