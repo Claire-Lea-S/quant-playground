@@ -8,7 +8,7 @@
 - Grid is 13×13 (169 cells total)
 - Place values 1 through N in the grid for some N
 - Exactly K cells contain value K, for each K = 1, 2, ..., N
-- Total filled cells = N(N+1)/2 ≤ 143, so N ≤ 16
+- Total filled cells = N(N+1)/2 ≤ 169, so N ≤ 17
 - Remaining cells are empty
 
 ## Connectivity Constraints
