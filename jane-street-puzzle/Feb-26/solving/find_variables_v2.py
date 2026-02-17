@@ -384,6 +384,7 @@ def gen_variants():
     ]
 
     # ---- (4,9): (3+b^2)/sqrt(3+2c) ----
+    # For (3,2,2): forced to 1 via (3+b^2)/(3+2c)=7/7=1. Need non-1 alternatives.
     V[(4,9)] = [
         ("(3+b^2)/sqrt(3+2c)",   lambda a,b,c: (3+b**2)/ssqrt(3+2*c) if ssqrt(3+2*c) else None),
         ("(3+b^2)/sqrt(3+2a)",   lambda a,b,c: (3+b**2)/ssqrt(3+2*a) if ssqrt(3+2*a) else None),
@@ -398,6 +399,46 @@ def gen_variants():
         ("(3+b^2)/sqrt(b+2c)",   lambda a,b,c: (3+b**2)/ssqrt(b+2*c) if ssqrt(b+2*c) else None),
         ("(3+b^2)/sqrt(3+a*c)",  lambda a,b,c: (3+b**2)/ssqrt(3+a*c) if ssqrt(3+a*c) else None),
         ("(3+b)^2/sqrt(3+2c)",   lambda a,b,c: (3+b)**2/ssqrt(3+2*c) if ssqrt(3+2*c) else None),
+        # NO-sqrt versions (maybe image doesn't have sqrt)
+        ("(3+b^2)/(3+c)",        lambda a,b,c: (3+b**2)/(3+c) if 3+c else None),
+        # For (3,2,2): 7/5. No.
+        ("(3+b^2)/(a+2c)",       lambda a,b,c: (3+b**2)/(a+2*c) if a+2*c else None),
+        # For (3,2,2): 7/7 = 1.
+        ("(3+b^2)/(b+2c)",       lambda a,b,c: (3+b**2)/(b+2*c) if b+2*c else None),
+        # For (3,2,2): 7/6. No.
+        ("(3+a^2)/(3+2c)",       lambda a,b,c: (3+a**2)/(3+2*c) if 3+2*c else None),
+        # For (3,2,2): 12/7. No.
+        ("(a+b^2)/(3+2c)",       lambda a,b,c: (a+b**2)/(3+2*c) if 3+2*c else None),
+        # For (3,2,2): 7/7 = 1.
+        ("(3+b^2)/(a+c)",        lambda a,b,c: (3+b**2)/(a+c) if a+c else None),
+        # For (3,2,2): 7/5. No.
+        ("(3+b^2)/a",            lambda a,b,c: (3+b**2)/a if a else None),
+        # For (3,2,2): 7/3. No.
+        ("(3+b^2)/c",            lambda a,b,c: (3+b**2)/c if c else None),
+        # For (3,2,2): 7/2. No.
+        ("(3+b^2)/b",            lambda a,b,c: (3+b**2)/b if b else None),
+        # For (3,2,2): 7/2. No.
+        ("(3+b^2)*(3+2c)",       lambda a,b,c: (3+b**2)*(3+2*c)),
+        # For (3,2,2): 49. > 17.
+        # What if it's (a+b²)/sqrt(a+2c) = 7/sqrt(7) = sqrt(7)? No.
+        # What if it's (3+b²)·sqrt(3+2c) = 7·sqrt(7) ≈ 18.5. > 17.
+        # Really struggling here. Maybe the whole expression is different.
+        # For (3,2,2): need value > 1. b=2, so b^2=4. a=3, c=2.
+        ("(a+b^2)/(a+c)",        lambda a,b,c: (a+b**2)/(a+c) if a+c else None),
+        # For (3,2,2): 7/5. No.
+        ("(a^2+b)/(3+2c)",       lambda a,b,c: (a**2+b)/(3+2*c) if 3+2*c else None),
+        # For (3,2,2): 11/7. No.
+        ("(3+b^2)/(c+1)",        lambda a,b,c: (3+b**2)/(c+1) if c+1 else None),
+        # For (3,2,2): 7/3. No.
+        ("(3+b^2)/(a-c)",        lambda a,b,c: (3+b**2)/(a-c) if a!=c else None),
+        # For (3,2,2): 7/1 = 7. YES!
+        ("(a+b^2)/(a-c)",        lambda a,b,c: (a+b**2)/(a-c) if a!=c else None),
+        # For (3,2,2): 7/1 = 7. YES!
+        ("(3+a^2)/(a-c)",        lambda a,b,c: (3+a**2)/(a-c) if a!=c else None),
+        # For (3,2,2): 12/1 = 12. YES!
+        ("(c+b^2)/(a-c)",        lambda a,b,c: (c+b**2)/(a-c) if a!=c else None),
+        # For (3,2,2): 6/1 = 6. YES!
+        ("(3+b^2)/(c-a)",        lambda a,b,c: (3+b**2)/(c-a) if c!=a else None),
     ]
 
     # ---- (5,3): b/(a^2-c^2) ----
