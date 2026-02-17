@@ -2,7 +2,7 @@
 
 ## Definitions
 
-- Grid G of size 13×11, cells indexed (r, c) where r ∈ {0,...,12}, c ∈ {0,...,10}
+- Grid G of size 13×13, cells indexed (r, c) where r ∈ {0,...,12}, c ∈ {0,...,12}
 - Variables: a, b, c ∈ ℤ⁺
 - Cell value: x(r,c) ∈ {0, 1, 2, ..., N} where 0 = empty
 - L ⊂ G = set of labeled cells (37 cells with expressions)
