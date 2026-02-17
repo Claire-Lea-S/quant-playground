@@ -969,34 +969,33 @@ def main():
             print()
     else:
         print("\nNo complete solutions found.")
-        print("Showing best partial results...")
+        print("Showing best partial results...\n")
 
-        # Re-run and find the best partial scores
-        best_partials = []
-        for b_val in b_candidates:
-            for a_val in a_candidates:
-                for c_val in c_candidates:
-                    if a_val == c_val:
-                        continue
-                    pos_options = find_valid_values(variants_dict, a_val, b_val, c_val)
-                    if pos_options is not None:
-                        score = len(pos_options)
-                        best_partials.append((score, a_val, b_val, c_val, pos_options))
-                    else:
-                        # Count how many positions can be satisfied
-                        count = 0
-                        for pos, variants in variants_dict.items():
-                            for vname, vfunc in variants:
-                                val = safe_eval(vfunc, a_val, b_val, c_val)
-                                if get_int(val) is not None:
-                                    count += 1
-                                    break
-                        best_partials.append((count, a_val, b_val, c_val, None))
+        # Combine partials from both sources
+        # partial_results has (count, a, b, c, missing_positions) for cases with no pos_options
+        partial_results.sort(key=lambda x: -x[0])
 
-        best_partials.sort(key=lambda x: -x[0])
-        print(f"\n  Best candidates (by #expressions satisfiable):")
-        for score, a_val, b_val, c_val, _ in best_partials[:10]:
-            print(f"    a={a_val}, b={b_val}, c={c_val}: {score}/37 expressions satisfiable")
+        print(f"  Best candidates (by #expressions individually satisfiable):")
+        for score, a_val, b_val, c_val, missing in partial_results[:15]:
+            print(f"\n    a={a_val}, b={b_val}, c={c_val}: {score}/37 expressions satisfiable")
+            if missing:
+                print(f"      UNSATISFIABLE positions: {missing}")
+                # Show what values the original expressions produce
+                for pos in missing:
+                    variants = variants_dict[pos]
+                    orig_name = variants[0][0]
+                    orig_func = variants[0][1]
+                    v = safe_eval(orig_func, a_val, b_val, c_val)
+                    v_str = f"{v:.6f}" if v is not None else "UNDEF"
+                    # Also show all variant values
+                    all_vals = []
+                    for vn, vf in variants:
+                        vv = safe_eval(vf, a_val, b_val, c_val)
+                        if vv is not None:
+                            all_vals.append(f"{vn}={vv:.4f}")
+                    print(f"        {pos} original: {orig_name} = {v_str}")
+                    if all_vals:
+                        print(f"          All variant values: {', '.join(all_vals[:8])}")
 
 
 if __name__ == "__main__":
