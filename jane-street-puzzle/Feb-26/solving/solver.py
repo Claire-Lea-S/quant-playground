@@ -426,22 +426,24 @@ def main():
         print("Running diagnostics on likely candidates...\n")
 
         # Try some promising candidates and show what fails
+        best_score = 0
         candidates = []
         for a in range(1, 25):
             for b in range(1, 12):
                 for c in range(2, 20):
-                    if a == c:
-                        continue
                     score = 0
                     for pos, (name, func) in LABELED_CELLS.items():
                         v = safe_eval(func, a, b, c)
                         if is_positive_integer(v) and round(v) <= MAX_N:
                             score += 1
-                    if score >= len(LABELED_CELLS) - 8:
+                    if score > best_score - 3:
                         candidates.append((score, a, b, c))
+                        if score > best_score:
+                            best_score = score
 
+        candidates = [(s, a, b, c) for s, a, b, c in candidates if s >= best_score - 2]
         candidates.sort(reverse=True)
-        print(f"Best candidates (top 10):")
+        print(f"Best candidates (top 10, best score = {best_score}/{len(LABELED_CELLS)}):")
         for score, a, b, c in candidates[:10]:
             print(f"  a={a}, b={b}, c={c}: {score}/{len(LABELED_CELLS)} expressions valid")
         for score, a, b, c in candidates[:3]:
